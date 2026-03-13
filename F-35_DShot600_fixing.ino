@@ -1078,7 +1078,7 @@ void controlMixer() {
   //F-35 Mixing
 
   //Servo trims - tune accordingly
-  float tilt_servo_trim = 0.47; //adjust to center tilt servo                                                                       0.47+
+  float tilt_servo_trim = 0.48; //adjust to center tilt servo                                                                       0.47+
   
   float left_elevon_trim = 0.7; //adjust in 0.1 incriments to bring left elevon level                                               0.63+
   float right_elevon_trim = 0.4; //adjust in 0.1 incriments to bring right elevon level                                             0.5+
