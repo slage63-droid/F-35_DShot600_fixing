@@ -1159,9 +1159,9 @@ void controlMixer() {
     Kd_yaw = 0.00011;       //Yaw D-gain (be careful when increasing too high, motors will begin to overheat!)
     
     nose_fader = floatFaderLinear(nose_fader, 0.0, 1.0, 0.4, 1, 2000); //1.0 = standard hover control, 0.0 = nose propeller off. This function call fades from 0.0 to 1.0 in 0.4 seconds
-    m1_command_scaled = nose_fader*(thro_des - pitch_PID); //nose propeller
-    m2_command_scaled = thro_des + pitch_PID - roll_PID; //right propeller
-    m3_command_scaled = thro_des + pitch_PID + roll_PID; //left propeller
+    m1_command_scaled = nose_fader*(thro_des + pitch_PID); //nose propeller    nose_fader*(thro_des - pitch_PID);
+    m2_command_scaled = thro_des - pitch_PID - roll_PID; //right propeller     thro_des + pitch_PID - roll_PID; 
+    m3_command_scaled = thro_des - pitch_PID + roll_PID; //left propeller      thro_des + pitch_PID + roll_PID;
     s1_command_scaled = right_elevon_trim + elevon_gain*(roll_PID - pitch_PID); //right elevon
     s2_command_scaled = left_elevon_trim + elevon_gain*(roll_PID + pitch_PID); //left elevon
     s3_holder = floatFaderLinear2(s3_holder, right_ail_trim_trans, right_ail_trim_hover, right_ail_trim_ff, 2.0, 0.2, 2000); //holder to handle the constant servo trim offset for right aileron
