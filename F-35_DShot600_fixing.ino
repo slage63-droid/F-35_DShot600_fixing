@@ -430,7 +430,7 @@ void loop() {
   //printAccelData();     //prints filtered accelerometer data direct from IMU (expected: ~ -2 to 2; x,y 0 when level, z 1 when level)
   //printMagData();       //prints filtered magnetometer data direct from IMU (expected: ~ -300 to 300)
   //printRollPitchYaw();  //prints roll, pitch, and yaw angles in degrees from Madgwick filter (expected: degrees, 0 when level)
-  printPIDoutput();     //prints computed stabilized PID variables from controller and desired setpoint (expected: ~ -1 to 1)
+  //printPIDoutput();     //prints computed stabilized PID variables from controller and desired setpoint (expected: ~ -1 to 1)
   //printMotorCommands(); //prints the values being written to the motors (expected: 120 to 250)
   //printServoCommands(); //prints the values being written to the servos (expected: 0 to 180)
   //printLoopRate();      //prints the time between loops in microseconds (expected: microseconds between loop iterations)
@@ -1102,18 +1102,18 @@ void controlMixer() {
     maxPitch = 180.0;   //max pitch angle in degrees for angle mode, deg/sec for rate mode
     maxYaw = 160.0;    //max yaw rate in degrees/sec
     
-    Kp_roll_angle = 0.2;    //Roll P-gain - angle mode 
-    Ki_roll_angle = 0.3;    //Roll I-gain - angle mode
-    Kd_roll_angle = 0.05;   //Roll D-gain - angle mode (if using controlANGLE2(), has no effect. Use B_loop_roll)
-    Kp_pitch_angle = 0.2;   //Pitch P-gain - angle mode
-    Ki_pitch_angle = 0.3;   //Pitch I-gain - angle mode
-    Kd_pitch_angle = 0.05;  //Pitch D-gain - angle mode (if using controlANGLE2(), has no effect. Use B_loop_pitch)
+    Kp_roll_angle = 0.2;    //Roll P-gain - angle mode                                                                       origin 0.2
+    Ki_roll_angle = 0.3;    //Roll I-gain - angle mode                                                                       origin 0.3
+    Kd_roll_angle = 0.05;   //Roll D-gain - angle mode (if using controlANGLE2(), has no effect. Use B_loop_roll)            origin 0.05
+    Kp_pitch_angle = 0.2;   //Pitch P-gain - angle mode                                                                      origin 0.2                                                                    
+    Ki_pitch_angle = 0.3;   //Pitch I-gain - angle mode                                                                      origin 0.3
+    Kd_pitch_angle = 0.05;  //Pitch D-gain - angle mode (if using controlANGLE2(), has no effect. Use B_loop_pitch)          origin 0.05
   
-    Kp_roll_rate = 0.2;     //Roll P-gain - rate mode  origin 0.3
-    Ki_roll_rate = 0.3;     //Roll I-gain - rate mode origin 0.3
+    Kp_roll_rate = 0.2;     //Roll P-gain - rate mode                                                                        origin 0.3
+    Ki_roll_rate = 0.3;     //Roll I-gain - rate mode                                                                        origin 0.3
     Kd_roll_rate = 0.0001;  //Roll D-gain - rate mode (be careful when increasing too high, motors will begin to overheat!)
-    Kp_pitch_rate = 0.25;    //Pitch P-gain - rate mode  origin 0.25
-    Ki_pitch_rate = 0.3;    //Pitch I-gain - rate mode   origin 0.3
+    Kp_pitch_rate = 0.25;    //Pitch P-gain - rate mode                                                                      origin 0.25
+    Ki_pitch_rate = 0.3;    //Pitch I-gain - rate mode                                                                       origin 0.3
     Kd_pitch_rate = 0.0001; //Pitch D-gain - rate mode (be careful when increasing too high, motors will begin to overheat!)
   
     Kp_yaw = 0.42;           //Yaw P-gain
