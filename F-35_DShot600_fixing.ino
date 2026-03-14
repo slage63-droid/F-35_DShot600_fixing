@@ -1197,15 +1197,15 @@ void controlMixer() {
     Kd_yaw = 0.00005;       //Yaw D-gain (be careful when increasing too high, motors will begin to overheat!)
     
     nose_fader = floatFaderLinear(nose_fader, 0.0, 1.0, 0.6, 0, 2000); //1.0 = standard hover control, 0.0 = nose propeller off. This function call fades from 1.0 to 0.0 in 0.6 seconds
-    m1_command_scaled = nose_fader*(thro_des - pitch_PID); //nose propeller
-    m2_command_scaled = thro_des + yaw_PID; //right propeller
-    m3_command_scaled = thro_des - yaw_PID; //left propeller
-    s1_command_scaled = right_elevon_trim + elevon_gain*(roll_PID - pitch_PID); //right elevon
-    s2_command_scaled = left_elevon_trim + elevon_gain*(roll_PID + pitch_PID); //left elevon
+    m1_command_scaled = nose_fader*(thro_des - pitch_PID); //nose propeller  nose_fader*(thro_des - pitch_PID);
+    m2_command_scaled = thro_des - yaw_PID; //right propeller      thro_des + yaw_PID;
+    m3_command_scaled = thro_des + yaw_PID; //left propeller       thro_des - yaw_PID;
+    s1_command_scaled = right_elevon_trim + elevon_gain*(roll_PID + pitch_PID); //right elevon   right_elevon_trim + elevon_gain*(roll_PID - pitch_PID); 
+    s2_command_scaled = left_elevon_trim + elevon_gain*(roll_PID - pitch_PID); //left elevon     left_elevon_trim + elevon_gain*(roll_PID + pitch_PID); 
     s3_holder = floatFaderLinear2(s3_holder, right_ail_trim_ff, right_ail_trim_hover, right_ail_trim_ff, 0.5, 3.0, 2000);
     s4_holder = floatFaderLinear2(s4_holder, left_ail_trim_ff, left_ail_trim_ff, left_ail_trim_hover, 3.0, 0.5, 2000);
-    s3_command_scaled = s3_holder + aileron_gain*(roll_PID - pitch_PID); //right aileron
-    s4_command_scaled = s4_holder + aileron_gain*(roll_PID + pitch_PID); //left aileron
+    s3_command_scaled = s3_holder + aileron_gain*(roll_PID + pitch_PID); //right aileron   s3_holder + aileron_gain*(roll_PID - pitch_PID);
+    s4_command_scaled = s4_holder + aileron_gain*(roll_PID -pitch_PID); //left aileron    s4_holder + aileron_gain*(roll_PID + pitch_PID);
     s5_command_scaled = tilt_servo_trim; //yaw tilt
   }
 
