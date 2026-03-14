@@ -424,13 +424,13 @@ void loop() {
   loopBlink(); //indicate we are in main loop with short blink every 1.5 seconds
 
   //Print data at 100hz (uncomment one at a time for troubleshooting) - SELECT ONE:
-  printRadioData();     //radio pwm values (expected: 1000 to 2000)
+  //printRadioData();     //radio pwm values (expected: 1000 to 2000)
   //printDesiredState();  //prints desired vehicle state commanded in either degrees or deg/sec (expected: +/- maxAXIS for roll, pitch, yaw; 0 to 1 for throttle)
   //printGyroData();      //prints filtered gyro data direct from IMU (expected: ~ -250 to 250, 0 at rest)
   //printAccelData();     //prints filtered accelerometer data direct from IMU (expected: ~ -2 to 2; x,y 0 when level, z 1 when level)
   //printMagData();       //prints filtered magnetometer data direct from IMU (expected: ~ -300 to 300)
   //printRollPitchYaw();  //prints roll, pitch, and yaw angles in degrees from Madgwick filter (expected: degrees, 0 when level)
-  //printPIDoutput();     //prints computed stabilized PID variables from controller and desired setpoint (expected: ~ -1 to 1)
+  printPIDoutput();     //prints computed stabilized PID variables from controller and desired setpoint (expected: ~ -1 to 1)
   //printMotorCommands(); //prints the values being written to the motors (expected: 120 to 250)
   //printServoCommands(); //prints the values being written to the servos (expected: 0 to 180)
   //printLoopRate();      //prints the time between loops in microseconds (expected: microseconds between loop iterations)
@@ -443,9 +443,9 @@ void loop() {
   getDesState(); //convert raw commands to normalized values based on saturated control limits
   
   //PID Controller - SELECT ONE:
-  //controlANGLE(); //stabilize on angle setpoint
+  controlANGLE(); //stabilize on angle setpoint  LEARN MODE
   //controlANGLE2(); //stabilize on angle setpoint using cascaded method 
-  controlRATE(); //stabilize on rate setpoint
+  //controlRATE(); //stabilize on rate setpoint  ACRO MODE-ADVANCED
 
   //Actuator mixing and scaling to PWM values
   controlMixer(); //mixes PID outputs to scaled actuator commands -- custom mixing assignments done here
@@ -1109,11 +1109,11 @@ void controlMixer() {
     Ki_pitch_angle = 0.3;   //Pitch I-gain - angle mode
     Kd_pitch_angle = 0.05;  //Pitch D-gain - angle mode (if using controlANGLE2(), has no effect. Use B_loop_pitch)
   
-    Kp_roll_rate = 0.3;     //Roll P-gain - rate mode
-    Ki_roll_rate = 0.3;     //Roll I-gain - rate mode
+    Kp_roll_rate = 0.2;     //Roll P-gain - rate mode  origin 0.3
+    Ki_roll_rate = 0.3;     //Roll I-gain - rate mode origin 0.3
     Kd_roll_rate = 0.0001;  //Roll D-gain - rate mode (be careful when increasing too high, motors will begin to overheat!)
-    Kp_pitch_rate = 0.25;    //Pitch P-gain - rate mode
-    Ki_pitch_rate = 0.3;    //Pitch I-gain - rate mode
+    Kp_pitch_rate = 0.25;    //Pitch P-gain - rate mode  origin 0.25
+    Ki_pitch_rate = 0.3;    //Pitch I-gain - rate mode   origin 0.3
     Kd_pitch_rate = 0.0001; //Pitch D-gain - rate mode (be careful when increasing too high, motors will begin to overheat!)
   
     Kp_yaw = 0.42;           //Yaw P-gain
@@ -1121,9 +1121,9 @@ void controlMixer() {
     Kd_yaw = 0.00011;       //Yaw D-gain (be careful when increasing too high, motors will begin to overheat!)
 
     nose_fader = 1.0; //1.0 = standard hover control, 0.0 = nose propeller off
-    m1_command_scaled = nose_fader*(thro_des - pitch_PID); //nose propeller
-    m2_command_scaled = thro_des + pitch_PID - roll_PID; //right propeller
-    m3_command_scaled = thro_des + pitch_PID + roll_PID; //left propeller
+    m1_command_scaled = nose_fader*(thro_des + pitch_PID); //nose propeller
+    m2_command_scaled = thro_des - pitch_PID - roll_PID; //right propeller
+    m3_command_scaled = thro_des - pitch_PID + roll_PID; //left propeller
     s1_command_scaled = right_elevon_trim; //right elevon
     s2_command_scaled = left_elevon_trim; //left elevon
     s3_holder = floatFaderLinear2(s3_command_scaled, right_ail_trim_hover, right_ail_trim_hover, right_ail_trim_trans, 2.0, 1.0, 2000); //holder to handle the constant servo trim offset for right aileron
