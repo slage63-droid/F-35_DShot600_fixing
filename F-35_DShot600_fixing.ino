@@ -1102,9 +1102,17 @@ void controlMixer() {
     maxPitch = 180.0;   //max pitch angle in degrees for angle mode, deg/sec for rate mode
     maxYaw = 160.0;    //max yaw rate in degrees/sec
     
-    Kp_roll_angle = 0.2;    //Roll P-gain - angle mode                                                                       origin 0.2
+    Kp_roll_angle = 0.2;    //Roll P-gain - angle mode — жорсткість/реактивність” по крену                                  origin 0.2
+    //Збільшуєш Kp → коптер швидше повертається до потрібного кута, але може з’явитись тремтіння/осциляції (гойдалка) або різкі ривки.
+    //Зменшуєш Kp → крен стає м’якший, але “ватний”, повільно вирівнюється.
     Ki_roll_angle = 0.3;    //Roll I-gain - angle mode                                                                       origin 0.3
+    //Ki_roll_angle (I) — прибирає постійну помилку (коли, наприклад, через дисбаланс/вітер/неідеальні мотори він постійно “завалюється” і P не дотягує).
+    //Збільшуєш Ki → краще тримає кут (менше дрейфу), але ризик накопичення інтегратора: після довгого нахилу може “перекрутити” і піти в гойдалку, особливо якщо газ не малий.
+    //Зменшуєш Ki → менше шансів на розгойдування, але може залишатися дрейф/недотримання кута.
     Kd_roll_angle = 0.05;   //Roll D-gain - angle mode (if using controlANGLE2(), has no effect. Use B_loop_roll)            origin 0.05
+    //Kd_roll_angle (D) — “демпфер/гальмо” (реакція на швидкість обертання), гасить коливання.
+    //Збільшуєш Kd → менше гойдалки, більш “прибраний” рух, але якщо забагато — реакція стане загальмована і може підсилювати шум/вібрації (нервова дрібна реакція).
+    //Зменшуєш Kd → швидше, але легше починає розкачуватися.
     Kp_pitch_angle = 0.2;   //Pitch P-gain - angle mode                                                                      origin 0.2                                                                    
     Ki_pitch_angle = 0.3;   //Pitch I-gain - angle mode                                                                      origin 0.3
     Kd_pitch_angle = 0.05;  //Pitch D-gain - angle mode (if using controlANGLE2(), has no effect. Use B_loop_pitch)          origin 0.05
