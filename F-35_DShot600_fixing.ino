@@ -426,7 +426,7 @@ void loop() {
   //Print data at 100hz (uncomment one at a time for troubleshooting) - SELECT ONE:
   //printRadioData();     //radio pwm values (expected: 1000 to 2000)
   //printDesiredState();  //prints desired vehicle state commanded in either degrees or deg/sec (expected: +/- maxAXIS for roll, pitch, yaw; 0 to 1 for throttle)
-  //printGyroData();      //prints filtered gyro data direct from IMU (expected: ~ -250 to 250, 0 at rest)
+  printGyroData();      //prints filtered gyro data direct from IMU (expected: ~ -250 to 250, 0 at rest)
   //printAccelData();     //prints filtered accelerometer data direct from IMU (expected: ~ -2 to 2; x,y 0 when level, z 1 when level)
   //printMagData();       //prints filtered magnetometer data direct from IMU (expected: ~ -300 to 300)
   //printRollPitchYaw();  //prints roll, pitch, and yaw angles in degrees from Madgwick filter (expected: degrees, 0 when level)
@@ -1138,7 +1138,7 @@ void controlMixer() {
     s4_holder = floatFaderLinear2(s4_command_scaled, left_ail_trim_hover, left_ail_trim_trans, left_ail_trim_hover, 1.0, 2.0, 2000); //holder to handle the constant servo trim offset for left aileron
     s3_command_scaled = s3_holder; //right aileron
     s4_command_scaled = s4_holder; //left aileron
-    s5_command_scaled = tilt_servo_trim - yaw_PID; //yaw tilt
+    s5_command_scaled = tilt_servo_trim + yaw_PID; //yaw tilt
   }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
