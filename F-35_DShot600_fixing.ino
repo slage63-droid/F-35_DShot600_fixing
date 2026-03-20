@@ -1176,7 +1176,7 @@ void controlMixer() {
     s4_holder = floatFaderLinear2(s4_holder, left_ail_trim_trans, left_ail_trim_ff, left_ail_trim_hover, 0.2, 2.0, 2000); //holder to handle the constant servo trim offset for left aileron
     s3_command_scaled = s3_holder; //right aileron
     s4_command_scaled = s4_holder; //left aileron
-    s5_command_scaled = tilt_servo_trim - yaw_PID; //yaw tilt
+    s5_command_scaled = tilt_servo_trim + yaw_PID; //yaw tilt
   }
   
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
