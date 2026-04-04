@@ -1260,7 +1260,7 @@ void scaleCommands() {
   s5_command_PWM = s5_command_scaled*180;
   // --- Servo5 (yaw tilt) limit: 90 ± 20 deg ---
     const int SERVO5_CENTER_DEG = 90;
-    const int SERVO5_RANGE_DEG  = 20;
+    const int SERVO5_RANGE_DEG  = 35;
     const int SERVO5_MIN_DEG    = SERVO5_CENTER_DEG - SERVO5_RANGE_DEG; // 70
     const int SERVO5_MAX_DEG    = SERVO5_CENTER_DEG + SERVO5_RANGE_DEG; // 110
     s5_command_PWM = constrain(s5_command_PWM, SERVO5_MIN_DEG, SERVO5_MAX_DEG);
